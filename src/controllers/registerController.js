@@ -20,7 +20,7 @@ export class RegisterController {
 
     const { firstName, lastName, address, city, zipCode, phoneNumber, email, password } = req.body
 
-
+    INSERT INTO memebers VALUES
 
   } */
 }

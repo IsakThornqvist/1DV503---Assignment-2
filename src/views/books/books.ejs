@@ -3,7 +3,7 @@
 <ul>
   <% books.forEach(book => { %>
     <li>
-      <strong><%= book.author %></strong> by <%= book.title %> Subject: <%= book.subject %> Price: <%= book.price %> 
+      <strong><%= book.title %></strong> by <strong><%= book.author%></strong> Subject: <%= book.subject %> Price: <%= book.price %> 
       
     </li>
   <% }) %>
