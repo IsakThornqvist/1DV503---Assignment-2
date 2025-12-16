@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Book Store</title>
+  <link rel="stylesheet" href="./css/login.css">
+
+</head>
+<body>
+  
+  <main role="main" class="container">
+    <div class="loginContainer">
+      <div class="loginRight">
+        <div class="formHeader">
+          <h2>Log in to The Book Club</h2>
+          <p>Fill in the details below to join The Book Club</p>
+        </div>
+        
+        <form class="loginForm" action="./login" method="POST">
+          <div class="formGroup">
+            <label for="email">Email</label>
+            <input type="text" id="email" name="email" placeholder="Enter Email" required>
+          </div>
+          
+          <div class="formGroup">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" placeholder="Enter password" required>
+            <p class="passwordHint">Enter Password</p>
+          </div>
+          
+ 
+          
+          <button type="submit" class="loginButton">Login</button>
+          
+          <div class="formFooter">
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+  
+</body>
+</html>
