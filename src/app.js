@@ -13,6 +13,7 @@ const app = express()
 
 // Middleware to parse request body
 app.use(express.urlencoded({ extended: false }))
+app.use(express.static(path.join(__dirname, 'public')))
 
 // Setup view engine
 app.set('views', path.join(__dirname, 'views'))
