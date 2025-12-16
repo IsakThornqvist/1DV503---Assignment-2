@@ -13,4 +13,14 @@ export class RegisterController {
   register (req, res, next) {
     res.render('register/register', { title: 'Register Member' })
   }
+
+
+
+/*   registerMember (req, res, next) {
+
+    const { firstName, lastName, address, city, zipCode, phoneNumber, email, password } = req.body
+
+
+
+  } */
 }
