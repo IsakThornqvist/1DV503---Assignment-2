@@ -4,6 +4,7 @@ import session from 'express-session'
 import expressLayouts from 'express-ejs-layouts'
 import path from 'path'
 import { fileURLToPath } from 'url'
+import { router } from './routes/router.js'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -27,8 +28,6 @@ app.use(session({
 }))
 
 // Example route
-app.get('/', (req, res) => {
-  res.render('index', { title: 'Bookstore Home' })
-})
+app.use('/', router)
 
 export default app
