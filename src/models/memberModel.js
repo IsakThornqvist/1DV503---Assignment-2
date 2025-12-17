@@ -35,6 +35,15 @@ async getMembers(limit = 10) {
     
     return userDATA.insertId
   }
+
+
+  async emailUniqueCheck (email) {
+    const sqlQuery = 'SELECT userid from members WHERE email = ?'
+
+    const [rows] = await pool.query(sqlQuery, [email])
+
+    return rows.length > 0
+  }
   
 } 
 
