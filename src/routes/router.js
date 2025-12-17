@@ -18,9 +18,4 @@ router.use('/books', bookRouter)
 
 
 
-router.use('*', (req, res, next) => {
-  const statusCode = 404
-  const error = new Error(http.STATUS_CODES[statusCode])
-  error.status = statusCode
-  next(error)
-})
+
