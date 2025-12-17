@@ -25,8 +25,14 @@ app.use(session({
   secret: process.env.SESSION_SECRET || 'secretkey',
   resave: false,
   saveUninitialized: false,
-  cookie: { secure: false } // Set true if using https
+  cookie: { secure: false }
 }))
+
+  app.use((req, res, next) => {
+    res.locals.flash = req.session.flash || null
+    delete req.session.flash
+    next()
+  })
 
 // Example route
 app.use('/', router)
