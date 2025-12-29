@@ -78,6 +78,21 @@ async getMembers(limit = 10) {
 
     return rows.length > 0
   }
+
+  async emailAndPasswordMatch (email, password) {
+    const sqlQuery = 'SELECT password FROM members WHERE email = ?'
+    const result = await pool.query(sqlQuery, [email])
+    const rows = result[0]
+
+       if (rows.length === 0) {
+      return false
+    }
+
+    const passwordHashed = rows[0].password
+    const isAMatch = await bcrypt.compare(password, passwordHashed)
+
+    return isAMatch
+  }
   
 } 
 
