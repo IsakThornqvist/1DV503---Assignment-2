@@ -27,14 +27,14 @@ async login(req, res, next) {
     const { email, password } = req.body
     
     if (!email || !password) {
-      req.session.flash = { type: 'danger', text: 'Please provide both email and password' }
+      req.session.flash = { type: 'danger', text: 'Provide both email and password' }
       return res.redirect('/login')
     }
     
     const emailExists = await this.memberModel.emailUniqueCheck(email)
 
       if (!emailExists) {
-      req.session.flash = { type: 'danger', text: 'Login failed - Invalid credentials' }
+      req.session.flash = { type: 'danger', text: 'Invalid credentials, login failed!' }
       return res.redirect('/login')
     }
 
