@@ -15,7 +15,8 @@ export class MemberModel {
    */
 async getMembers(limit = 10) {
   const sql = 'SELECT fname, lname, address, city, zip, phone, email FROM members LIMIT ?'
-  const [rows] = await pool.query(sql, [limit])
+  const result = await pool.query(sql, [limit])
+  const rows = result[0]
   return rows
 }
 
@@ -41,13 +42,15 @@ async getMembers(limit = 10) {
 
 
   const passwordHashed = await bcrypt.hash(password, 10)
-
+// insert a new row into members
+// fill each colums with a value
+// Values will be provided later bcuz ? ? ?
   const sqlQuery = `
     INSERT INTO members (fname, lname, address, city, zip, phone, email, password) 
     VALUES (?, ?, ?, ?, ?, ?, ?, ?)
   `
 
-      const [userDATA] = await pool.query(sqlQuery, [
+      const result = await pool.query(sqlQuery, [
       fname, 
       lname, 
       address, 
@@ -58,7 +61,7 @@ async getMembers(limit = 10) {
       passwordHashed
     ])
     
-    return userDATA.insertId
+    return result[0].insertId
   }
 
   /**
@@ -70,7 +73,8 @@ async getMembers(limit = 10) {
   async emailUniqueCheck (email) {
     const sqlQuery = 'SELECT userid from members WHERE email = ?'
 
-    const [rows] = await pool.query(sqlQuery, [email])
+    const result = await pool.query(sqlQuery, [email])
+    const rows = result[0]
 
     return rows.length > 0
   }
