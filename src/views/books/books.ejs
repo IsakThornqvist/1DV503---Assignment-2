@@ -20,3 +20,22 @@
   <% }) %>
 </ul>
 
+<div class="pagination">
+  <% if (currentPage > 1) { %>
+    <a href="/books?page=<%= currentPage - 1 %>">⬅ Previous</a>
+  <% } %>
+
+ <% for (let i = firstPage; i <= lastPage; i++) { %>
+
+    <% if (i === currentPage) { %>
+      <span class="currentPage"><%= i %></span>
+    <% } else { %>
+      <a href="/books?page=<%= i %>"><%= i %></a>
+    <% } %>
+  <% } %>
+
+  <% if (currentPage < totalPages) { %>
+    <a href="/books?page=<%= currentPage + 1 %>">Next ➡</a>
+  <% } %>
+</div>
+
