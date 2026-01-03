@@ -6,8 +6,19 @@
     <div class="navigation">
       <a class="navigationLink" href="./">Home</a>
       <a class="navigationLink" href="./books">Our Books</a>
-      <a class="navigationLink" href="./register">Register</a>
-      <a class="navigationLink" href="./login">Login</a>
+<!--       <a class="navigationLink" href="./register">Register</a>
+      <a class="navigationLink" href="./login">Login</a> -->
+
+      <p>
+        <% if (user) { %>
+          User: <%= user.email %>
+          <a class="navLogOut" href="./login/logout">Logout</a>
+        <% } else { %>
+          <a class="navigationLink" href="./register">Register</a>
+          <a class="navigationLink" href="./login">Login</a>
+        <% } %>
+      </p>
     </div>
+    
   </div>
 </nav>
