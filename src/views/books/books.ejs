@@ -1,6 +1,32 @@
 <link rel="stylesheet" href="/css/books.css">
 <h1><%= title %></h1>
 
+
+<div id="searchContainer">
+<div class="filterSection">
+    <span class="filterLabel">Filter by Subject:</span>
+    <button class="subjectFilterButton" data-subject="all">All</button>
+    <button class="subjectFilterButton" data-subject="Crime, Thriller & Mystery">Crime, Thriller & Mystery</button>
+    <button class="subjectFilterButton" data-subject="Action & Adventure">Action & Adventure</button>
+    <button class="subjectFilterButton" data-subject="Comics & Mangas">Comics & Mangas</button>
+    <button class="subjectFilterButton" data-subject="Computing, Internet & Digital Media">Computing, Internet & Digital Media</button>
+    <button class="subjectFilterButton" data-subject="Language, Linguistics & Writing">Comics & Mangas</button>
+    <button class="subjectFilterButton" data-subject="Comics & Mangas">Comics & Mangas</button>
+    <button class="subjectFilterButton" data-subject="Comics & Mangas">Comics & Mangas</button>
+    <button class="subjectFilterButton" data-subject="Comics & Mangas">Comics & Mangas</button>
+    <button class="subjectFilterButton" data-subject="Comics & Mangas">Comics & Mangas</button>
+  </div>
+
+<button class="authorFilterButton"></button>
+<button class="titleFilterButton"></button>
+
+<button class="itemsPerPageButton"> </button>
+<button class="itemsPerPageButton"> </button>
+<button class="itemsPerPageButton"> </button>
+<button class="itemsPerPageButton"> </button>
+<button class="itemsPerPageButton"> </button>
+
+</div>
 <ul class="bookList">
   <% books.forEach(book => { %>
     <li class="bookItem">
