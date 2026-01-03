@@ -9,6 +9,13 @@
       <div class="bookISBN">ISBN: <%= book.isbn %></div>
       <div class="bookSubject">Subject: <%= book.subject %></div>
       <div class="bookPrice">Price: $<%= book.price %></div>
+      <p>
+        <% if (user) { %>
+          <button id="addCartButton"> Add to cart</button>
+        <% } else { %>
+          <p> Login to add to cart</p>
+        <% } %>
+      </p>
     </li>
   <% }) %>
 </ul>
