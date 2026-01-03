@@ -93,6 +93,40 @@ body {
   }
 }
 
+.userInfo {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 16px;
+  background: #ffffff;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+}
+
+.userEmail {
+  color: #ffffff;
+  font-weight: bold;
+  font-size: 0.95em;
+}
+
+.navLogOut {
+  padding: 6px 14px;
+  background: #d4a574;
+  color: #ffffff;
+  text-decoration: none;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 0.9em;
+  transition: all 0.3s ease;
+}
+
+.navLogOut:hover {
+  background: #0d4011;
+  color: #d4a574;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(17, 85, 22, 0.3);
+}
+
 
 
 
