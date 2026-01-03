@@ -8,7 +8,7 @@ export class BookController {
   async renderBooks(req, res, next) {
     try {
       const books = await this.bookModel.getBooks(10)
-      res.render('books/books', { title: 'Books', books })
+      res.render('books/books', { title: 'Books we offer!', books })
     } catch (err) {
       next(err)
     }

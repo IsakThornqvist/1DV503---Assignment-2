@@ -1,0 +1,52 @@
+.bookList {
+  list-style: none;
+  padding: 0;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.bookItem {
+  border: 1px solid #e0e0e0;
+  padding: 24px 28px;
+  margin-bottom: 20px;
+  border-radius: 12px;
+  background: #ffffff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.bookItem:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+  border-color: #115516;
+}
+
+.bookTitle {
+  font-weight: 700;
+  font-size: 1.1em;
+  margin-bottom: 12px;
+  color: #1a1a1a;
+}
+
+.bookAuthor,
+.bookSubject,
+.bookISBN,
+.bookPrice {
+  font-size: 1.05em;
+  margin-bottom: 6px;
+  color: #666;
+  line-height: 1.5;
+}
+
+.bookPrice {
+  font-weight: 600;
+  color: #115516;
+  margin-top: 8px;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #1a1a1a;
+}

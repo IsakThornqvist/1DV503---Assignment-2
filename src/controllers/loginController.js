@@ -39,6 +39,7 @@ export class LoginController {
     })
   }
 
+  // refactoring later
 async login(req, res, next) {
   try {
     const { email, password } = req.body
@@ -79,5 +80,8 @@ async login(req, res, next) {
     next(error)
   }
 }
+
+
+
 
 }
