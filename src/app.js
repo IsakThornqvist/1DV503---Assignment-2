@@ -11,6 +11,7 @@ const __dirname = path.dirname(__filename)
 
 const app = express()
 
+
 // Middleware to parse request body
 app.use(express.urlencoded({ extended: false }))
 app.use(express.static(path.join(__dirname, 'public')))
@@ -33,7 +34,11 @@ app.use(session({
     delete req.session.flash
     next()
   })
-
+  
+  app.use((req, res, next) => {
+    res.locals.user = req.session.user || null
+    next()
+  })
 // Example route
 app.use('/', router)
 
