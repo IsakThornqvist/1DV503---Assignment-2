@@ -93,6 +93,15 @@ async getMembers(limit = 10) {
 
     return isAMatch
   }
+
+  async getUserId (email) {
+    const sqlQuery = 'SELECT userid from members WHERE email = ?'
+
+    const result = await pool.query(sqlQuery, [email])
+    const rows = result[0]
+
+    return rows[0].userid
+  }
   
 } 
 
