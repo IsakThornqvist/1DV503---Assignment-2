@@ -1,0 +1,129 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  background: #f5f5f5;
+  color: #1a1a1a;
+  line-height: 1.6;
+}
+
+.container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.registerContainer {
+  width: 100%;
+  max-width: 500px;
+}
+
+.registerRight {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 40px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  border: 1px solid #e0e0e0;
+}
+
+.formHeader {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.formHeader h2 {
+  font-size: 1.8em;
+  color: #1a1a1a;
+  margin-bottom: 8px;
+}
+
+.formHeader p {
+  color: #666666;
+  font-size: 0.95em;
+}
+
+.registerForm {
+  display: flex;
+  flex-direction: column;
+}
+
+.formGroup {
+  margin-bottom: 18px;
+}
+
+.formGroup label {
+  display: block;
+  margin-bottom: 6px;
+  color: #1a1a1a;
+  font-weight: 500;
+  font-size: 0.95em;
+}
+
+.formGroup input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 1em;
+  transition: all 0.3s ease;
+  background: #fafafa;
+}
+
+.formGroup input:focus {
+  outline: none;
+  border-color: #115516;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(17, 85, 22, 0.1);
+}
+
+.passwordHint {
+  font-size: 0.85em;
+  color: #666666;
+  margin-top: 4px;
+}
+
+.registerButton {
+  width: 100%;
+  padding: 14px;
+  background: #115516;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.05em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+}
+
+.registerButton:hover {
+  background: #0d4011;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(17, 85, 22, 0.3);
+}
+
+.formFooter {
+  text-align: center;
+  margin-top: 24px;
+}
+
+.formFooter p {
+  color: #666666;
+  font-size: 0.95em;
+}
+
+.formFooter a {
+  color: #115516;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.formFooter a:hover {
+  text-decoration: underline;
+}
