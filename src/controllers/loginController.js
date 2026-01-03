@@ -20,7 +20,24 @@ export class LoginController {
     res.render('login/login', { title: 'Login' })
   }
 
-
+  /**
+   * Logs out the user by destroying the session and redirects to the home page.
+   *
+   * @param {object} req - Express request object.
+   * @param {object} res - Express response object.
+   * @param {Function} next - Express next middleware function.
+   */
+  logout (req, res, next) {
+    req.session.destroy((err) => {
+      if (err) {
+        console.error(err)
+        req.session.flash = { type: 'danger', text: 'Failed to log out!' }
+        return res.redirect('/')
+      }
+      res.redirect('/')
+      console.log('logged out')
+    })
+  }
 
 async login(req, res, next) {
   try {
@@ -42,12 +59,19 @@ async login(req, res, next) {
       console.log(email)
       console.log(password)
 
+
       if(isAMatch) {
+    const userId = await this.memberModel.getUserId(email)
+     req.session.user = { id: userId, email: email}
+
+    console.log(userId) 
+
         req.session.flash = { type: 'success', text: 'Login worked' }
         return res.redirect('./books')
-      } else {
+      }
+       else {
         req.session.flash = { type: 'danger', text: 'Login failed' }
-        return res.redirect('./register')
+        return res.redirect('./login')
       }
 
     

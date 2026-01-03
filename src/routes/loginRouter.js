@@ -8,3 +8,5 @@ const controller = new LoginController()
 router.get('/', (req, res, next) => controller.renderLogin(req, res, next))
 
 router.post('/', (req, res, next) => controller.login(req, res, next))
+
+router.get('/logout', (req, res, next) => controller.logout(req, res, next))
