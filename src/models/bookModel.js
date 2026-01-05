@@ -26,4 +26,10 @@ async getBooks(limit = 5, offset = 0) {
     return rows
   }
 
+    async getBookCountBySubject(subject) {
+    const sql = 'SELECT COUNT(*) as total FROM books WHERE subject = ?'
+    const [rows] = await pool.query(sql, [subject])
+    return rows[0].total
+  }
+
 }
