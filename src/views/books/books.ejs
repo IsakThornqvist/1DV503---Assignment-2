@@ -2,7 +2,6 @@
 <script src="/js/books.js"></script>
 <h1><%= title %></h1>
 
-
 <div id="searchContainer">
   <div class="filterSection">
     <span class="filterLabel">Filter by Subject:</span>
@@ -10,7 +9,7 @@
       <% subjects.forEach(subject => { %>
         <li class="subject">
           <button 
-            class="subjectName <%= currentSubject === subject.subject ? 'active' : '' %>" 
+            class="subjectName <%= currentSubject === subject.subject %>" 
             data-subject="<%= subject.subject %>">
             <%= subject.subject %>
           </button>
@@ -22,55 +21,54 @@
     <% } %>
   </div>
 
-
-<button class="authorFilterButton"></button>
-<button class="titleFilterButton"></button>
-
-<button class="itemsPerPageButton"> </button>
-<button class="itemsPerPageButton"> </button>
-<button class="itemsPerPageButton"> </button>
-<button class="itemsPerPageButton"> </button>
-<button class="itemsPerPageButton"> </button>
-
+  <button class="authorFilterButton">Search by Author</button>
+  <button class="titleFilterButton">Search by Title</button>
 </div>
-<ul class="bookList">
-  <% books.forEach(book => { %>
-    <li class="bookItem">
-      <div class="bookTitle"><%= book.title %></div>
-      <div class="bookAuthor">Author: <%= book.author %></div>
-      <div class="bookISBN">ISBN: <%= book.isbn %></div>
-      <div class="bookSubject">Subject: <%= book.subject %></div>
-      <div class="bookPrice">Price: $<%= book.price %></div>
-      <p>
-        <% if (user) { %>
-          <button id="addCartButton"> Add to cart</button>
-        <% } else { %>
-          <p> Login to add to cart</p>
-        <% } %>
-      </p>
-    </li>
-  <% }) %>
-</ul>
 
-<div class="pagination">
-  <% if (currentPage) { %>
+<% if (!booksExist) { %>
+  <div class="noBooks">
+    <p>No books found for this subject.</p>
+  </div>
+<% } else { %>
+  <ul class="bookList">
+    <% books.forEach(book => { %>
+      <li class="bookItem">
+        <div class="bookTitle"><%= book.title %></div>
+        <div class="bookAuthor">Author: <%= book.author %></div>
+        <div class="bookISBN">ISBN: <%= book.isbn %></div>
+        <div class="bookSubject">Subject: <%= book.subject %></div>
+        <div class="bookPrice">Price: $<%= book.price %></div>
+        <p>
+          <% if (user) { %>
+            <button id="addCartButton">Add to cart</button>
+          <% } else { %>
+            <p>Login to add to cart</p>
+          <% } %>
+        </p>
+      </li>
+    <% }) %>
+  </ul>
+
+    <% if (currentPage) { %>
     <p><%= currentPage %></p>
   <% } %>
 
-  <% if (currentPage > 1) { %>
-    <a href="/books?page=<%= currentPage - 1 %>">⬅ Previous</a>
-  <% } %>
 
- <% for (let pageNumber = firstPage; pageNumber <= lastPage; pageNumber++) { %>
-
-    <% if (pageNumber === currentPage) { %>
-      <span class="currentPage"><%= pageNumber %></span>
-    <% } else { %>
-      <a href="/books?page=<%= pageNumber %>"><%= pageNumber %></a>
+  <div class="pagination">
+    <% if (currentPage > 1) { %>
+      <a href="/books?page=<%= currentPage - 1 %><%= currentSubject ? '&subject=' + encodeURIComponent(currentSubject) : '' %>">⬅ Previous</a>
     <% } %>
-  <% } %>
 
-  <% if (currentPage < totalPages) { %>
-    <a href="/books?page=<%= currentPage + 1 %>">Next ➡</a>
-  <% } %>
-</div>
+    <% for (let pageNumber = firstPage; pageNumber <= lastPage; pageNumber++) { %>
+      <% if (pageNumber === currentPage) { %>
+        <span class="currentPage"><%= pageNumber %></span>
+      <% } else { %>
+        <a href="/books?page=<%= pageNumber %><%= currentSubject ? '&subject=' + encodeURIComponent(currentSubject) : '' %>"><%= pageNumber %></a>
+      <% } %>
+    <% } %>
+
+    <% if (currentPage < totalPages) { %>
+      <a href="/books?page=<%= currentPage + 1 %><%= currentSubject ? '&subject=' + encodeURIComponent(currentSubject) : '' %>">Next ➡</a>
+    <% } %>
+  </div>
+<% } %>
