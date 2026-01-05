@@ -1,12 +1,30 @@
 import { BookModel } from '../models/bookModel.js'
 
+/**
+ * Controller class to handle book-related HTTP requests and responses.
+ */
 export class BookController {
   #bookModel
   #limit = 5
+
+  /**
+   * Creates a new BookController instance.
+   * Initializes a BookModel instance and sets the default pagination limit.
+   */
   constructor() {
     this.#bookModel = new BookModel()
   }
 
+  /**
+   * Handles rendering the list of books, optionally filtered by subject, with pagination.
+   * Extracts query parameters from the request (page and subject).
+   * Fetches books and metadata from the model, then renders the 'books/books' view.
+   * 
+   * @param {import('express').Request} req - Express request object
+   * @param {import('express').Response} res - Express response object
+   * @param {import('express').NextFunction} next - Express next middleware function
+   * @returns {Promise<void>} - Resolves when rendering is complete
+   */
   async renderBooks(req, res, next) {
     try {
       const page = parseInt(req.query.page) || 1
@@ -41,6 +59,7 @@ export class BookController {
     firstPage = Math.max(1, lastPage - maxPages + 1)
   }
 
+  // Render the books page with all relevant data for display and controls
       res.render('books/books', {
         title: 'Books we offer!',
         books,
