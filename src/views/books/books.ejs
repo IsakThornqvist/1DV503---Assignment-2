@@ -19,6 +19,20 @@
     <% if (currentSubject) { %>
       <a href="/books" class="clearFilter">Clear Filter</a>
     <% } %>
+
+
+    <ul>
+      <% authors.forEach(author => { %>
+        <li class="author">
+          <button 
+            class="authorName <%= currentAuthor === author.author %>" 
+            data-author="<%= author.author %>">
+            <%= author.author %>
+          </button>
+        </li>
+      <% }) %>
+    </ul>
+
   </div>
 
   <button class="authorFilterButton">Search by Author</button>
@@ -56,19 +70,25 @@
 
   <div class="pagination">
     <% if (currentPage > 1) { %>
-      <a href="/books?page=<%= currentPage - 1 %><%= currentSubject ? '&subject=' + encodeURIComponent(currentSubject) : '' %>">⬅ Previous</a>
+      <a href="/books?page=<%= currentPage - 1 %>
+        <%= currentSubject ? '&subject=' + encodeURIComponent(currentSubject) : '' %>
+        <%= currentAuthor ? '&author=' + encodeURIComponent(currentAuthor) : '' %>">⬅ Previous</a>
     <% } %>
 
     <% for (let pageNumber = firstPage; pageNumber <= lastPage; pageNumber++) { %>
       <% if (pageNumber === currentPage) { %>
         <span class="currentPage"><%= pageNumber %></span>
       <% } else { %>
-        <a href="/books?page=<%= pageNumber %><%= currentSubject ? '&subject=' + encodeURIComponent(currentSubject) : '' %>"><%= pageNumber %></a>
+        <a href="/books?page=<%= pageNumber %>
+          <%= currentSubject ? '&subject=' + encodeURIComponent(currentSubject) : '' %>
+          <%= currentAuthor ? '&author=' + encodeURIComponent(currentAuthor) : '' %>"><%= pageNumber %></a>
       <% } %>
     <% } %>
 
     <% if (currentPage < totalPages) { %>
-      <a href="/books?page=<%= currentPage + 1 %><%= currentSubject ? '&subject=' + encodeURIComponent(currentSubject) : '' %>">Next ➡</a>
+      <a href="/books?page=<%= currentPage + 1 %>
+        <%= currentSubject ? '&subject=' + encodeURIComponent(currentSubject) : '' %>
+        <%= currentAuthor ? '&author=' + encodeURIComponent(currentAuthor) : '' %>">Next ➡</a>
     <% } %>
   </div>
 <% } %>

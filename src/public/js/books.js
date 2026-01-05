@@ -1,3 +1,4 @@
+
 /**
  * Adds click event listeners to all elements with the class 'subjectName'.
  * When clicked, redirects the browser to the books page filtered by the selected subject.
@@ -7,6 +8,15 @@ document.addEventListener('DOMContentLoaded', () => {
     button.addEventListener('click', () => {
       const subject = button.dataset.subject
       window.location.href = `/books?subject=${encodeURIComponent(subject)}`
+    })
+  })
+})
+
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.authorName').forEach(button => {
+    button.addEventListener('click', () => {
+      const author = button.dataset.author
+      window.location.href = `/books?author=${encodeURIComponent(author)}`
     })
   })
 })

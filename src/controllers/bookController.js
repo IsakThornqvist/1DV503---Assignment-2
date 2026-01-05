@@ -29,14 +29,23 @@ export class BookController {
     try {
       const page = parseInt(req.query.page) || 1
       console.log('page', page)
+
       const subject = req.query.subject || null
       console.log('subject', subject)
+
+      const author = req.query.author || null
+
       const offset = (page -1) * this.#limit
       console.log('offset', offset)
 
       let books
       let totalBooks
-      if (subject) {
+
+      if (author) {
+        books = await this.#bookModel.getBookByAuthor(this.#limit, offset, author)
+        totalBooks = await this.#bookModel.getBookCountByAuthor(author)
+      }
+      else if (subject) {
         books = await this.#bookModel.getBookBySubject(this.#limit, offset, subject)
         totalBooks = await this.#bookModel.getBookCountBySubject(subject)
         console.log('totalBooks', totalBooks)
@@ -48,6 +57,7 @@ export class BookController {
 
       const subjects = await this.#bookModel.getSubjects()
       const totalPages = Math.ceil(totalBooks / this.#limit)
+      const authors = await this.#bookModel.getAuthors()
 
       const maxPages = 20
 
@@ -69,7 +79,9 @@ export class BookController {
         lastPage,
         booksExist: books.length > 0,
         subjects,
-        currentSubject: subject
+        currentSubject: subject,
+        authors,
+        currentAuthor: author
       })
     } catch (err) {
       next(err)
