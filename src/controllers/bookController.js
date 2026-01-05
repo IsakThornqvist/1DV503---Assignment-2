@@ -41,7 +41,11 @@ export class BookController {
       let books
       let totalBooks
 
-      if (author) {
+        if (author && subject) {
+        books = await this.#bookModel.getBookByAuthorAndSubject(this.#limit, offset, author, subject)
+        totalBooks = await this.#bookModel.getBookCountByAuthorAndSubject(author, subject)
+      }
+      else if (author) {
         books = await this.#bookModel.getBookByAuthor(this.#limit, offset, author)
         totalBooks = await this.#bookModel.getBookCountByAuthor(author)
       }

@@ -86,5 +86,23 @@ async getBooks(limit = 5, offset = 0) {
     
   }
   
+    async getAuthorsAndSubjects () {
+    const sql = 'SELECT DISTINCT author, subject FROM books'
+    const [rows] = await pool.query(sql)
+    return rows
+  }
+
+    async getBookByAuthorAndSubject (limit = 5, offset = 0, author = 'none', subject = 'none') {
+    const sql = `SELECT * FROM books WHERE author = ? AND subject = ? LIMIT ? OFFSET ?`
+    const [rows] = await pool.query(sql, [author, subject, limit, offset])
+    return rows
+  }
+
+    async getBookCountByAuthorAndSubject(author, subject) {
+    const sql = 'SELECT COUNT(*) as total FROM books WHERE author LIKE ? AND subject = ?'
+    const [rows] = await pool.query(sql, [author, subject])
+    return rows[0].total
+    
+  }
 
 }
