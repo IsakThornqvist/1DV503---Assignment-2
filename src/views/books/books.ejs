@@ -51,12 +51,12 @@
     <a href="/books?page=<%= currentPage - 1 %>">⬅ Previous</a>
   <% } %>
 
- <% for (let i = firstPage; i <= lastPage; i++) { %>
+ <% for (let pageNumber = firstPage; pageNumber <= lastPage; pageNumber++) { %>
 
-    <% if (i === currentPage) { %>
-      <span class="currentPage"><%= i %></span>
+    <% if (pageNumber === currentPage) { %>
+      <span class="currentPage"><%= pageNumber %></span>
     <% } else { %>
-      <a href="/books?page=<%= i %>"><%= i %></a>
+      <a href="/books?page=<%= pageNumber %>"><%= pageNumber %></a>
     <% } %>
   <% } %>
 

@@ -20,12 +20,12 @@ export class BookController {
 
       const maxPages = 20
 
-      const firstPage = Math.max(1, page - Math.floor(maxPages / 2))
-      const lastPage = firstPage + maxPages - 1
+      let firstPage = Math.max(1, page - Math.floor(maxPages / 2))
+      let lastPage = firstPage + maxPages - 1
 
   if (lastPage > totalPages) {
     lastPage = totalPages
-    firstPage = Math.max(1, lastPage - maxPagesToShow + 1)
+    firstPage = Math.max(1, lastPage - maxPages + 1)
   }
 
       res.render('books/books', {
