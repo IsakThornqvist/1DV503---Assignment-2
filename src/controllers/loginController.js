@@ -40,6 +40,17 @@ export class LoginController {
   }
 
   // refactoring later
+  
+  /**
+   * Processes login form submission.
+   * Validates credentials and sets session if successful.
+   * Redirects back to login page with flash messages on failure.
+   *
+   * @param {object} req - Express request object containing `body` with `email` and `password`.
+   * @param {object} res - Express response object.
+   * @param {Function} next - Express next middleware function.
+   * @returns {Promise<void>}
+   */
 async login(req, res, next) {
   try {
     const { email, password } = req.body
