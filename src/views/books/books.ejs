@@ -1,18 +1,26 @@
 <link rel="stylesheet" href="/css/books.css">
+<script src="/js/books.js"></script>
 <h1><%= title %></h1>
 
 
 <div id="searchContainer">
-<div class="filterSection">
-  <span class="filterLabel">Filter by Subject:</span>
-  <ul>
-    <% subjects.forEach(subject => { %>
-      <li class="subject">
-        <button class="subjectName" data-subject="<%= subject.subject %>"><%= subject.subject %></button>
-      </li>
-    <% }) %>
-  </ul>
-</div>
+  <div class="filterSection">
+    <span class="filterLabel">Filter by Subject:</span>
+    <ul>
+      <% subjects.forEach(subject => { %>
+        <li class="subject">
+          <button 
+            class="subjectName <%= currentSubject === subject.subject ? 'active' : '' %>" 
+            data-subject="<%= subject.subject %>">
+            <%= subject.subject %>
+          </button>
+        </li>
+      <% }) %>
+    </ul>
+    <% if (currentSubject) { %>
+      <a href="/books" class="clearFilter">Clear Filter</a>
+    <% } %>
+  </div>
 
 
 <button class="authorFilterButton"></button>
@@ -66,4 +74,3 @@
     <a href="/books?page=<%= currentPage + 1 %>">Next ➡</a>
   <% } %>
 </div>
-
