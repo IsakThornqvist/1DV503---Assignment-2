@@ -14,4 +14,16 @@ async getBooks(limit = 5, offset = 0) {
     return rows[0].total
   }
 
+  async getBookBySubject (limit = 5, offset = 0, subject = 'none') {
+    const sql = `SELECT * FROM books WHERE subject = ? LIMIT ? OFFSET ?`
+    const [rows] = await pool.query(sql, [subject, limit, offset])
+    return rows
+  }
+
+  async getSubjects () {
+    const sql = 'SELECT DISTINCT subject FROM books'
+    const [rows] = await pool.query(sql)
+    return rows
+  }
+
 }

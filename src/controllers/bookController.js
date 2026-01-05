@@ -15,6 +15,7 @@ export class BookController {
 
       const books = await this.#bookModel.getBooks(this.#limit, offset)
       const totalBooks = await this.#bookModel.getBookCount()
+      const subjects = await this.#bookModel.getSubjects()
 
       const totalPages = Math.ceil(totalBooks / this.#limit)
 
@@ -34,7 +35,8 @@ export class BookController {
         currentPage: page,
         totalPages,
         firstPage,
-        lastPage
+        lastPage,
+        subjects
       })
     } catch (err) {
       next(err)
