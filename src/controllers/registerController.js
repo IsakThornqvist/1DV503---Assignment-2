@@ -19,6 +19,17 @@ export class RegisterController {
     res.render('register/register', { title: 'Register Member' })
   }
 
+  
+  /**
+   * Handles registration form submission.
+   * Validates inputs, checks for email uniqueness,
+   * creates a new member, and redirects accordingly.
+   *
+   * @param {object} req - Express request object containing registration data in `body`.
+   * @param {object} res - Express response object.
+   * @param {Function} next - Express next middleware function.
+   * @returns {Promise<void>}
+   */
   async registerNewMember (req, res, next) {
     try {
     const { fname, lname, address, city, zip, phone, email, password, confirmPassword } = req.body

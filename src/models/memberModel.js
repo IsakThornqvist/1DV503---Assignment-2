@@ -79,6 +79,14 @@ async getMembers(limit = 10) {
     return rows.length > 0
   }
 
+  /**
+   * Verify if the provided email and password match a member in the database.
+   * Compares the plaintext password with the stored hashed password.
+   * 
+   * @param {string} email - The email address to check.
+   * @param {string} password - The plaintext password to verify.
+   * @returns {Promise<boolean>} True if credentials match, false otherwise.
+   */
   async emailAndPasswordMatch (email, password) {
     const sqlQuery = 'SELECT password FROM members WHERE email = ?'
     const result = await pool.query(sqlQuery, [email])
@@ -94,6 +102,12 @@ async getMembers(limit = 10) {
     return isAMatch
   }
 
+  /**
+   * Get the user ID of a member by their email.
+   * 
+   * @param {string} email - The email address of the member.
+   * @returns {Promise<number>} The user ID.
+   */
   async getUserId (email) {
     const sqlQuery = 'SELECT userid from members WHERE email = ?'
 
