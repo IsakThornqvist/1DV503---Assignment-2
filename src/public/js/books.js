@@ -17,12 +17,12 @@ document.addEventListener('DOMContentLoaded', () => {
     })
   })
 
-  const searchForm = document.getElementById('searchForm')
-  if (searchForm) {
-    searchForm.addEventListener('submit', (e) => {
+  const aSearchForm = document.getElementById('aSearchForm')
+  if (aSearchForm) {
+    aSearchForm.addEventListener('submit', (e) => {
       e.preventDefault()
       
-      const authorInput = document.getElementById('searchInput')
+      const authorInput = document.getElementById('aSearchInput')
       const authorValue = authorInput.value.trim()
       
       const urlParams = new URLSearchParams(window.location.search)
@@ -31,6 +31,28 @@ document.addEventListener('DOMContentLoaded', () => {
         urlParams.set('author', authorValue)
       } else {
         urlParams.delete('author')
+      }
+      
+      urlParams.delete('page')
+      
+      window.location.href = `/books?${urlParams.toString()}`
+    })
+  }
+  
+  const tSearchForm = document.getElementById('tSearchForm')
+  if (tSearchForm) {
+    tSearchForm.addEventListener('submit', (e) => {
+      e.preventDefault()
+      
+      const titleInput = document.getElementById('tSearchInput')
+      const titleValue = titleInput.value.trim()
+      
+      const urlParams = new URLSearchParams(window.location.search)
+      
+      if (titleValue) {
+        urlParams.set('title', titleValue)
+      } else {
+        urlParams.delete('title')
       }
       
       urlParams.delete('page')
