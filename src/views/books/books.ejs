@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="/css/books.css">
 <script src="/js/books.js"></script>
-<h1><%= title %></h1>
+<h1>Book Section</h1>
 
 <div id="searchContainer">
   <div class="filterSection">
@@ -23,10 +23,10 @@
 
     <div class="authorSearch">
       <span class="filterLabel">Search by Author:</span>
-      <form id="searchForm">
+      <form id="aSearchForm">
         <input 
           type="text" 
-          id="searchInput" 
+          id="aSearchInput" 
           name="author" 
           placeholder="Search by author" 
           value="<%= currentAuthor || '' %>"
@@ -39,7 +39,23 @@
     </div>
   </div>
 
-  <button class="titleFilterButton">Search by Title</button>
+    <div class="titleSearch">
+      <span class="filterLabel">Search by Title:</span>
+      <form id="tSearchForm">
+        <input 
+          type="text" 
+          id="tSearchInput" 
+          name="title" 
+          placeholder="Search by title" 
+          value="<%= currentTitle || '' %>"
+        >
+        <button type="submit">Search</button>
+      </form>
+      <% if (currentTitle) { %>
+        <a href="/books<%= currentSubject ? '?subject=' + encodeURIComponent(currentSubject) : '' %>" class="clearFilter">Clear Title Filter</a>
+      <% } %>
+    </div>
+  </div>
 </div>
 
 <% if (!booksExist) { %>
@@ -71,27 +87,29 @@
   <% } %>
 
 
-  <div class="pagination">
-    <% if (currentPage > 1) { %>
-      <a href="/books?page=<%= currentPage - 1 %>
-        <%= currentSubject ? '&subject=' + encodeURIComponent(currentSubject) : '' %>
-        <%= currentAuthor ? '&author=' + encodeURIComponent(currentAuthor) : '' %>">⬅ Previous</a>
-    <% } %>
+<div class="pagination">
+  <% if (currentPage > 1) { %>
+    <a href="/books?page=<%= currentPage - 1 %><%= currentSubject ? '&subject=' + encodeURIComponent(currentSubject) : '' %><%= currentAuthor ? '&author=' + encodeURIComponent(currentAuthor) : '' %><%= currentTitle ? '&title=' + encodeURIComponent(currentTitle) : '' %>">
+      ⬅ Previous
+    </a>
+  <% } %>
 
-    <% for (let pageNumber = firstPage; pageNumber <= lastPage; pageNumber++) { %>
-      <% if (pageNumber === currentPage) { %>
-        <span class="currentPage"><%= pageNumber %></span>
-      <% } else { %>
-        <a href="/books?page=<%= pageNumber %>
-          <%= currentSubject ? '&subject=' + encodeURIComponent(currentSubject) : '' %>
-          <%= currentAuthor ? '&author=' + encodeURIComponent(currentAuthor) : '' %>"><%= pageNumber %></a>
-      <% } %>
+  <% for (let pageNumber = firstPage; pageNumber <= lastPage; pageNumber++) { %>
+    <% if (pageNumber === currentPage) { %>
+      <span class="currentPage"><%= pageNumber %></span>
+    <% } else { %>
+      <a href="/books?page=<%= pageNumber %><%= currentSubject ? '&subject=' + encodeURIComponent(currentSubject) : '' %><%= currentAuthor ? '&author=' + encodeURIComponent(currentAuthor) : '' %><%= currentTitle ? '&title=' + encodeURIComponent(currentTitle) : '' %>">
+        <%= pageNumber %>
+      </a>
     <% } %>
+  <% } %>
 
-    <% if (currentPage < totalPages) { %>
-      <a href="/books?page=<%= currentPage + 1 %>
-        <%= currentSubject ? '&subject=' + encodeURIComponent(currentSubject) : '' %>
-        <%= currentAuthor ? '&author=' + encodeURIComponent(currentAuthor) : '' %>">Next ➡</a>
-    <% } %>
-  </div>
+  <% if (currentPage < totalPages) { %>
+    <a href="/books?page=<%= currentPage + 1 %><%= currentSubject ? '&subject=' + encodeURIComponent(currentSubject) : '' %><%= currentAuthor ? '&author=' + encodeURIComponent(currentAuthor) : '' %><%= currentTitle ? '&title=' + encodeURIComponent(currentTitle) : '' %>">
+      Next ➡
+    </a>
+  <% } %>
+</div>
+
+
 <% } %>
