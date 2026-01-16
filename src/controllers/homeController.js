@@ -11,6 +11,6 @@ export class HomeController {
    * @param {Function} next - Express next middleware function.
    */
   index (req, res, next) {
-    res.render('home/index', { title: 'Bookstore Home' })
+    res.render('home/index')
   }
 }
