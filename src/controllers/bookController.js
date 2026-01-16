@@ -35,16 +35,35 @@ export class BookController {
 
       const author = req.query.author || null
 
+      const title = req.query.title || null
+
       const offset = (page -1) * this.#limit
       console.log('offset', offset)
 
       let books
       let totalBooks
+      
+      if (author && subject && title) {
+        books = await this.#bookModel.getBookByAuthorAndSubjectAndTitle(this.#limit, offset, author, subject, title)
+        totalBooks = await this.#bookModel.getBookCountByAuthorAndSubjectAndTitle(author, subject, title)
 
-        if (author && subject) {
+      }
+        else if (author && subject) {
         books = await this.#bookModel.getBookByAuthorAndSubject(this.#limit, offset, author, subject)
         totalBooks = await this.#bookModel.getBookCountByAuthorAndSubject(author, subject)
+
       }
+
+        else if (author && title) {
+        books = await this.#bookModel.getBookByAuthorAndTitle(this.#limit, offset, author, title)
+        totalBooks = await this.#bookModel.getBookCountByAuthorAndTitle(author, title)
+
+      }
+      else if (subject && title) {
+        books = await this.#bookModel.getBookBySubjectAndTitle(this.#limit, offset, subject, title )
+        totalBooks = await this.#bookModel.getBookCountByTitleAndSubject(title, subject)
+      }
+
       else if (author) {
         books = await this.#bookModel.getBookByAuthor(this.#limit, offset, author)
         totalBooks = await this.#bookModel.getBookCountByAuthor(author)
@@ -53,7 +72,12 @@ export class BookController {
         books = await this.#bookModel.getBookBySubject(this.#limit, offset, subject)
         totalBooks = await this.#bookModel.getBookCountBySubject(subject)
         console.log('totalBooks', totalBooks)
-      } else {
+      }
+      else if (title) {
+        books = await this.#bookModel.getBookByTitle(this.#limit, offset, title)
+        totalBooks = await this.#bookModel.getBookCountByTitle(title)
+      }
+      else {
       books = await this.#bookModel.getBooks(this.#limit, offset)
       totalBooks = await this.#bookModel.getBookCount()
       console.log('totalBooks', totalBooks)
@@ -85,7 +109,9 @@ export class BookController {
         subjects,
         currentSubject: subject,
         authors,
-        currentAuthor: author
+        currentAuthor: author,
+        title,
+        currentTitle: title
       })
     } catch (err) {
       next(err)
