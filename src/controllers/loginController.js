@@ -78,7 +78,7 @@ async login(req, res, next) {
 
     console.log(userId) 
 
-        req.session.flash = { type: 'success', text: 'Login worked' }
+        req.session.flash = { type: 'success', text: 'User logged in' }
         return res.redirect('./books')
       }
        else {
