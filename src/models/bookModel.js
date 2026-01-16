@@ -74,14 +74,14 @@ async getBooks(limit = 5, offset = 0) {
   }
 
     async getBookByAuthor (limit = 5, offset = 0, author = 'none') {
-    const sql = `SELECT * FROM books WHERE author = ? LIMIT ? OFFSET ?`
-    const [rows] = await pool.query(sql, [author, limit, offset])
+    const sql = `SELECT * FROM books WHERE author LIKE ? LIMIT ? OFFSET ?`
+    const [rows] = await pool.query(sql, [`${author}%`, limit, offset])
     return rows
   }
 
     async getBookCountByAuthor(author) {
     const sql = 'SELECT COUNT(*) as total FROM books WHERE author LIKE ?'
-    const [rows] = await pool.query(sql, [author])
+    const [rows] = await pool.query(sql, [`${author}%`])
     return rows[0].total
     
   }
@@ -93,14 +93,14 @@ async getBooks(limit = 5, offset = 0) {
   }
 
     async getBookByAuthorAndSubject (limit = 5, offset = 0, author = 'none', subject = 'none') {
-    const sql = `SELECT * FROM books WHERE author = ? AND subject = ? LIMIT ? OFFSET ?`
-    const [rows] = await pool.query(sql, [author, subject, limit, offset])
+    const sql = `SELECT * FROM books WHERE author LIKE ? AND subject = ? LIMIT ? OFFSET ?`
+    const [rows] = await pool.query(sql, [`${author}%`, subject, limit, offset])
     return rows
   }
 
     async getBookCountByAuthorAndSubject(author, subject) {
     const sql = 'SELECT COUNT(*) as total FROM books WHERE author LIKE ? AND subject = ?'
-    const [rows] = await pool.query(sql, [author, subject])
+    const [rows] = await pool.query(sql, [`${author}%`, subject])
     return rows[0].total
     
   }
