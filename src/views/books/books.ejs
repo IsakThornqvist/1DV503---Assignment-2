@@ -9,7 +9,7 @@
       <% subjects.forEach(subject => { %>
         <li class="subject">
           <button 
-            class="subjectName <%= currentSubject === subject.subject %>" 
+            class="subjectName <%= currentSubject === subject.subject %>"
             data-subject="<%= subject.subject %>">
             <%= subject.subject %>
           </button>
@@ -17,31 +17,34 @@
       <% }) %>
     </ul>
     <% if (currentSubject) { %>
-      <a href="/books" class="clearFilter">Clear Filter</a>
+      <a href="/books" class="clearFilter">Clear Subject Filter</a>
     <% } %>
 
 
-    <ul>
-      <% authors.forEach(author => { %>
-        <li class="author">
-          <button 
-            class="authorName <%= currentAuthor === author.author %>" 
-            data-author="<%= author.author %>">
-            <%= author.author %>
-          </button>
-        </li>
-      <% }) %>
-    </ul>
-
+    <div class="authorSearch">
+      <span class="filterLabel">Search by Author:</span>
+      <form id="searchForm">
+        <input 
+          type="text" 
+          id="searchInput" 
+          name="author" 
+          placeholder="Search by author" 
+          value="<%= currentAuthor || '' %>"
+        >
+        <button type="submit">Search</button>
+      </form>
+      <% if (currentAuthor) { %>
+        <a href="/books<%= currentSubject ? '?subject=' + encodeURIComponent(currentSubject) : '' %>" class="clearFilter">Clear Author Filter</a>
+      <% } %>
+    </div>
   </div>
 
-  <button class="authorFilterButton">Search by Author</button>
   <button class="titleFilterButton">Search by Title</button>
 </div>
 
 <% if (!booksExist) { %>
   <div class="noBooks">
-    <p>No books found for this subject.</p>
+    <p>No books found for this search!</p>
   </div>
 <% } else { %>
   <ul class="bookList">
@@ -63,7 +66,7 @@
     <% }) %>
   </ul>
 
-    <% if (currentPage) { %>
+  <% if (currentPage) { %>
     <p><%= currentPage %></p>
   <% } %>
 
