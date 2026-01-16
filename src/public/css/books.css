@@ -173,3 +173,71 @@ h1 {
   cursor: default;
   pointer-events: none;
 }
+
+.authorSearch,
+.titleSearch {
+  max-width: 700px;
+  margin: 25px auto 0;
+  padding: 0;
+}
+
+.authorSearch form,
+.titleSearch form {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin-top: 8px;
+}
+
+.authorSearch input,
+.titleSearch input {
+  flex: 1;
+  max-width: 400px;
+  padding: 8px 12px;
+  font-size: 1em;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.authorSearch input:focus,
+.titleSearch input:focus {
+  border-color: #115516;
+  box-shadow: 0 0 5px rgba(17, 85, 22, 0.3);
+}
+
+.authorSearch button,
+.titleSearch button {
+  padding: 8px 16px;
+  border-radius: 6px;
+  border: none;
+  background-color: #115516;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.authorSearch button:hover,
+.titleSearch button:hover {
+  background-color: #d4a574;
+  color: #115516;
+}
+
+.authorSearch .clearFilter,
+.titleSearch .clearFilter {
+  display: block;
+  margin-top: 10px;
+  text-align: center;
+  color: #115516;
+  font-weight: 600;
+  text-decoration: underline;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.authorSearch .clearFilter:hover,
+.titleSearch .clearFilter:hover {
+  color: #d4a574;
+}
