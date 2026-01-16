@@ -8,32 +8,34 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.subjectName').forEach(button => {
     button.addEventListener('click', () => {
       const clickedSubject = button.dataset.subject
-      console.log(clickedSubject)
-      const urlParamSubject = new URLSearchParams(window.location.search)
-      console.log(urlParamSubject)
-
-      urlParamSubject.set('subject', clickedSubject)
-
-
-      window.location.href = `/books?${urlParamSubject.toString()}`
+      const urlParams = new URLSearchParams(window.location.search)
+      
+      urlParams.set('subject', clickedSubject)
+      urlParams.delete('page') // filtering reset
+      
+      window.location.href = `/books?${urlParams.toString()}`
     })
   })
 
-/**
- * Adds click event listeners to all elements with the class 'authorName'.
- * When clicked, redirects the browser to the books page filtered by the selected author.
- */
-  document.querySelectorAll('.authorName').forEach(button => {
-    button.addEventListener('click', () => {
-      const clickedAuthor = button.dataset.author
-      console.log(clickedAuthor)
-      const urlParamAuthor = new URLSearchParams(window.location.search)
-      console.log(urlParamAuthor)
-
-      urlParamAuthor.set('author', clickedAuthor)
-
-
-      window.location.href = `/books?${urlParamAuthor.toString()}`
+  const searchForm = document.getElementById('searchForm')
+  if (searchForm) {
+    searchForm.addEventListener('submit', (e) => {
+      e.preventDefault()
+      
+      const authorInput = document.getElementById('searchInput')
+      const authorValue = authorInput.value.trim()
+      
+      const urlParams = new URLSearchParams(window.location.search)
+      
+      if (authorValue) {
+        urlParams.set('author', authorValue)
+      } else {
+        urlParams.delete('author')
+      }
+      
+      urlParams.delete('page')
+      
+      window.location.href = `/books?${urlParams.toString()}`
     })
-  })
+  }
 })
