@@ -15,7 +15,7 @@ export class CartController {
 
   async renderCart(req, res, next) {
     try {
-        // Check if use ris logged in
+        // Check if user is logged in
       if (!req.session.user) {
         return res.redirect('/login')
       }
@@ -107,8 +107,8 @@ async checkout(req, res, next) {
 
     // Calculate the total price
     let totalPrice = 0
-    for (const item of allCartItems) {
-        totalPrice += Number(item.total)
+    for (let i = 0; i < allCartItems.length; i++) {
+        totalPrice += Number(allCartItems[i].total)
     }
 
     res.render('cart/orderDetails', {
