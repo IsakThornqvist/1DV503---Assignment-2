@@ -39,7 +39,6 @@ export class LoginController {
     })
   }
 
-  // refactoring later
   
   /**
    * Processes login form submission.
@@ -68,15 +67,12 @@ async login(req, res, next) {
     }
 
     const isAMatch = await this.memberModel.emailAndPasswordMatch(email, password)
-      console.log(email)
-      console.log(password)
 
 
       if(isAMatch) {
     const userId = await this.memberModel.getUserId(email)
      req.session.user = { id: userId, email: email}
 
-    console.log(userId) 
 
         req.session.flash = { type: 'success', text: 'User logged in' }
         return res.redirect('./books')

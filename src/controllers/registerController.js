@@ -34,13 +34,10 @@ export class RegisterController {
     try {
     const { fname, lname, address, city, zip, phone, email, password, confirmPassword } = req.body
 
-    // funkar ej kolla på senare
     if (!fname || !lname || !address || !city || !zip || !phone || !email || !password) {
         req.session.flash = { type: 'danger', text: 'Fill in all fields' }
         return res.redirect('./register')
       }
-
-
 
       // makes sure you input the same password 2 times
       if (password !== confirmPassword) {

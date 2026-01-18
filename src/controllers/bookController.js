@@ -97,7 +97,6 @@ export class BookController {
     firstPage = Math.max(1, lastPage - maxPages + 1)
   }
 
-  // Render the books page with all relevant data for display and controls
       res.render('books/books', {
         title: 'Books we offer!',
         books,
