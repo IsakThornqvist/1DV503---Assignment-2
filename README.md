@@ -1,25 +1,70 @@
 # 1DV503---Assignment-2
 
-# Notes to Self
+![home page](./img/image.png)
 
-## Register New Member flow
+# Bookstore Web Application
 
-- Frontend form submits a **POST** request with user input data.
-- `RegisterController.registerNewMember` method handles the request.
-- Form input values are extracted from `req.body` into variables that correspond to each form field.
-- Controller performs validation:
-  - All required fields are filled.
-  - Password and confirmation password match.
-  - Password meets minimum length requirements.
-  - Email is unique by calling `emailUniqueCheck` in `MemberModel`.
-- If validation fails:
-  - An error message is set.
-  - User is redirected back to the registration page.
-- If validation passes:
-  - Password is hashed securely using **bcrypt**.
-  - `MemberModel.createMember` inserts the new member data (including hashed password) into the database.
-  - Database returns the new user's ID (`insertId`).
-- Controller sets a success message in the session.
-- User is redirected to the login page to sign in.
+A simple web application for browsing and purchasing books online, built with Node.js and MySQL.
 
- 
+## Features
+
+- User registration and login
+- Browse books by subject
+- Search books by author or title
+- Add books to shopping cart
+- Checkout and order management
+- View order invoices
+
+![register page](./img/image4.png)
+
+![book page](./img/image2.png)
+
+
+## Running the Application
+
+Start the application:
+```bash
+npm start
+```
+
+The application will run on `http://localhost:3000`
+
+## Usage
+
+1. **Register** - Create a new account with your email and password
+2. **Login** - Sign in with your credentials
+3. **Browse Books** - Select a subject or search by author/title
+4. **Add to Cart** - Select quantity and add books to your cart
+5. **View Cart** - Review items in your shopping cart
+6. **Checkout** - Complete your order and view the invoice
+7. **Logout** - Sign out of your account
+
+## Project Structure
+
+```
+project/
+├── config/          # Database configuration
+├── controllers/     # Request handlers
+├── models/          # Database queries
+├── routes/          # Route definitions
+├── views/           # EJS templates
+└── server.js        # Application entry point
+```
+
+## Technologies Used
+
+- Node.js
+- Express.js
+- MySQL (mysql2)
+- EJS (templating)
+- express-session (session management)
+- bcrypt (password encryption)
+
+## Notes
+
+- Email addresses must be unique
+- Passwords are encrypted before storing
+- Order delivery date is automatically set to 7 days from order date
+- Cart is cleared after checkout
+
+![cart page](./img/image3.png)
