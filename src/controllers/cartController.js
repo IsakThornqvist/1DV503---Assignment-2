@@ -15,6 +15,7 @@ export class CartController {
 
   async renderCart(req, res, next) {
     try {
+        // Check if use ris logged in
       if (!req.session.user) {
         return res.redirect('/login')
       }
@@ -22,6 +23,7 @@ export class CartController {
       const userid = req.session.user.id
       const allCartItems = await this.#cartModel.getCartItemsWithUserId(userid)
 
+    // Calculate total cart amount
     let cartTotalAmount = 0
     for (let i = 0; i < allCartItems.length; i++) {
         cartTotalAmount += Number(allCartItems[i].total)
@@ -61,6 +63,7 @@ export class CartController {
       const userid = req.session.user.id
       const { isbn, qty } = req.body
 
+      // 1 quantity is default
       await this.#cartModel.addBookToCart(userid, isbn, Number(qty) || 1)
 
       res.redirect('/cart')
@@ -77,6 +80,7 @@ async checkout(req, res, next) {
     const allCartItems = await this.#cartModel.getCartItemsWithUserId(userid)
     const userAddress = await this.#memberModel.getUserAddress(userid)
 
+    // Create a new order
     const ono = await this.#orderModel.createOrder(
       userid,
       userAddress.address,
@@ -84,6 +88,7 @@ async checkout(req, res, next) {
       userAddress.zip
     )
 
+    // Add items to order details (odetails table)
     for (let i = 0; i < allCartItems.length; i++) {
         await this.#orderModel.createOrderDetail(
             ono, 
@@ -95,10 +100,12 @@ async checkout(req, res, next) {
 
     await this.#cartModel.clearCart(userid)
 
+    // Set delivery date 1 week from order day
     const deliveryDate = new Date()
     const orderDate = new Date()
     deliveryDate.setDate(deliveryDate.getDate() + 7)
 
+    // Calculate the total price
     let totalPrice = 0
     for (const item of allCartItems) {
         totalPrice += Number(item.total)

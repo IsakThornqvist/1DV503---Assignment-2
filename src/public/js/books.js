@@ -1,9 +1,4 @@
-
-/**
- * Adds click event listeners to all elements with the class 'subjectName'.
- * When clicked, redirects the browser to the books page filtered by the selected subject.
- */
-
+// Handle subject, author, and title search filtering
 document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.subjectName').forEach(button => {
     button.addEventListener('click', () => {
@@ -11,12 +6,13 @@ document.addEventListener('DOMContentLoaded', () => {
       const urlParams = new URLSearchParams(window.location.search)
       
       urlParams.set('subject', clickedSubject)
-      urlParams.delete('page') // filtering reset
+      urlParams.delete('page') // Filtering reset
       
       window.location.href = `/books?${urlParams.toString()}`
     })
   })
 
+  // Author search form
   const aSearchForm = document.getElementById('aSearchForm')
   if (aSearchForm) {
     aSearchForm.addEventListener('submit', (e) => {
@@ -39,6 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
     })
   }
   
+  // Title search form
   const tSearchForm = document.getElementById('tSearchForm')
   if (tSearchForm) {
     tSearchForm.addEventListener('submit', (e) => {
