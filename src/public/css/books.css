@@ -241,3 +241,23 @@ h1 {
 .titleSearch .clearFilter:hover {
   color: #d4a574;
 }
+
+.emptyCart {
+  text-align:center;
+}
+
+.cartTotal {
+  text-align:center;
+  font-size:1.2em; 
+  font-weight:700;
+}
+
+.checkoutButton {
+  text-align:center; 
+  margin-top:20px;
+}
+
+.clearCart {
+  text-align:center; 
+  margin-top:20px;
+}
