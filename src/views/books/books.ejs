@@ -17,7 +17,10 @@
       <% }) %>
     </ul>
     <% if (currentSubject) { %>
-      <a href="/books" class="clearFilter">Clear Subject Filter</a>
+      <a href="/books?<%= currentAuthor ? 'author=' + encodeURIComponent(currentAuthor) : '' %><%= currentAuthor && currentTitle ? '&' : '' %><%= currentTitle ? 'title=' + encodeURIComponent(currentTitle) : '' %>" class="clearFilter">
+  Clear Subject Filter
+</a>
+
     <% } %>
 
 
@@ -34,30 +37,36 @@
         <button type="submit">Search</button>
       </form>
       <% if (currentAuthor) { %>
-        <a href="/books<%= currentSubject ? '?subject=' + encodeURIComponent(currentSubject) : '' %>" class="clearFilter">Clear Author Filter</a>
+        <a href="/books?<%= currentSubject ? 'subject=' + encodeURIComponent(currentSubject) : '' %><%= currentSubject && currentTitle ? '&' : '' %><%= currentTitle ? 'title=' + encodeURIComponent(currentTitle) : '' %>" class="clearFilter">
+  Clear Author Filter
+</a>
+
       <% } %>
     </div>
-  </div>
-
+    
     <div class="titleSearch">
       <span class="filterLabel">Search by Title:</span>
       <form id="tSearchForm">
         <input 
-          type="text" 
-          id="tSearchInput" 
-          name="title" 
-          placeholder="Search by title" 
-          value="<%= currentTitle || '' %>"
+        type="text" 
+        id="tSearchInput" 
+        name="title" 
+        placeholder="Search by title" 
+        value="<%= currentTitle || '' %>"
         >
         <button type="submit">Search</button>
       </form>
       <% if (currentTitle) { %>
-        <a href="/books<%= currentSubject ? '?subject=' + encodeURIComponent(currentSubject) : '' %>" class="clearFilter">Clear Title Filter</a>
-      <% } %>
+        <a href="/books?<%= currentSubject ? 'subject=' + encodeURIComponent(currentSubject) : '' %><%= currentSubject && currentAuthor ? '&' : '' %><%= currentAuthor ? 'author=' + encodeURIComponent(currentAuthor) : '' %>" class="clearFilter">
+          Clear Title Filter
+        </a>
+        
+        <% } %>
+      </div>
     </div>
   </div>
+  
 </div>
-
 <% if (!booksExist) { %>
   <div class="noBooks">
     <p>No books found for this search!</p>
