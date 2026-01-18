@@ -4,11 +4,13 @@ import { MemberModel } from '../models/memberModel.js'
 
 export class CartController {
   #cartModel
-
+  #orderModel
+  #memberModel
 
   constructor() {
     this.#cartModel = new CartModel()
-
+    this.#orderModel = new OrderModel()
+    this.#memberModel = new MemberModel()
   }
 
   async renderCart(req, res, next) {
@@ -20,10 +22,10 @@ export class CartController {
       const userid = req.session.user.id
       const allCartItems = await this.#cartModel.getCartItemsWithUserId(userid)
 
-      const cartTotalAmount = allCartItems.reduce(
-        (sum, item) => sum + Number(item.total),
-        0
-      )
+    let cartTotalAmount = 0
+    for (let i = 0; i < allCartItems.length; i++) {
+        cartTotalAmount += Number(allCartItems[i].total)
+    }
 
       res.render('cart/cart', {
         title: 'Your Cart',
@@ -34,7 +36,7 @@ export class CartController {
       next(err)
     }
   }
-
+  
   async clearCart(req, res, next) {
     try {
       if (!req.session.user) {
@@ -68,5 +70,50 @@ export class CartController {
   }
 
 
+async checkout(req, res, next) {
+  try {
+    const userid = req.session.user.id
 
+    const allCartItems = await this.#cartModel.getCartItemsWithUserId(userid)
+    const userAddress = await this.#memberModel.getUserAddress(userid)
+
+    const ono = await this.#orderModel.createOrder(
+      userid,
+      userAddress.address,
+      userAddress.city,
+      userAddress.zip
+    )
+
+    for (let i = 0; i < allCartItems.length; i++) {
+        await this.#orderModel.createOrderDetail(
+            ono, 
+            allCartItems[i].isbn, 
+            allCartItems[i].qty, 
+            allCartItems[i].total
+        )
+    }
+
+    await this.#cartModel.clearCart(userid)
+
+    const deliveryDate = new Date()
+    const orderDate = new Date()
+    deliveryDate.setDate(deliveryDate.getDate() + 7)
+
+    let totalPrice = 0
+    for (const item of allCartItems) {
+        totalPrice += Number(item.total)
+    }
+
+    res.render('cart/orderDetails', {
+      ono,
+      allCartItems,
+      userAddress,
+      deliveryDate: deliveryDate.toLocaleDateString(),
+      orderDate: orderDate.toLocaleDateString(),
+      totalPrice
+    })
+  } catch (err) {
+    next(err)
+  }
+}
 }

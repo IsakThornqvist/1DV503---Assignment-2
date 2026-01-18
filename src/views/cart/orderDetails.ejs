@@ -1,0 +1,25 @@
+<h1>Order Confirmation</h1>
+
+<p><strong>Order Number:</strong> <%= ono %></p>
+<p><strong>Order Date:</strong> <%= orderDate %></p>
+<p><strong>Delivery Date:</strong> <%= deliveryDate %></p>
+
+<h3>Shipping To:</h3>
+<p><%= userAddress.fname %> <%= userAddress.lname %></p>
+<p><%= userAddress.address %></p>
+<p><%= userAddress.city %>, <%= userAddress.zip %></p>
+
+<h3>Items:</h3>
+<ul>
+  <% allCartItems.forEach(item => { %>
+    <li>
+      <%= item.title %> - 
+      Quantity: <%= item.qty %> - 
+      $<%= Number(item.total).toFixed(2) %>
+    </li>
+  <% }) %>
+</ul>
+
+<p><strong>Total: $<%= Number(totalPrice).toFixed(2) %></strong></p>
+
+<a href="/books">Shop more</a>
