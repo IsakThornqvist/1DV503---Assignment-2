@@ -116,6 +116,12 @@ async getMembers(limit = 10) {
 
     return rows[0].userid
   }
+
+async getUserAddress(userid) {
+  const sql = `SELECT fname, lname, address, city, zip FROM members WHERE userid = ?`
+  const [rows] = await pool.query(sql, [userid])
+  return rows[0]
+}
   
 } 
 
