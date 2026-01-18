@@ -1,0 +1,38 @@
+<link rel="stylesheet" href="/css/books.css">
+
+<h1>Your Cart</h1>
+
+<% if (!allCartItems.length) { %>
+  <p class="emptyCart">Your cart is currently empty.</p>
+<% } else { %>
+
+<ul class="bookList">
+  <% allCartItems.forEach(item => { %>
+    <li class="bookItem">
+      <div class="bookTitle"><%= item.title %></div>
+      <div class="bookAuthor">Author: <%= item.author %></div>
+      <div class="bookISBN">ISBN: <%= item.isbn %></div>
+      <div class="bookSubject">Subject: <%= item.subject %></div>
+      <div class="bookPrice">
+        $<%= item.price %> × <%= item.qty %>
+      </div>
+      <div class="bookPrice">
+        Item total: $<%= item.total %>
+      </div>
+    </li>
+  <% }) %>
+</ul>
+
+<div class="cartTotal">
+  Cart Total Price: $<%= cartTotalAmount.toFixed(2) %>
+</div>
+
+<form action="/cart/clear" method="POST" class="clearCart">
+  <button id="addCartButton">Clear cart</button>
+</form>
+
+<form action="/cart/checkout" method="POST" class="checkoutButton">
+  <button id="addCartButton" type="submit">Checkout</button>
+</form>
+
+<% } %>
