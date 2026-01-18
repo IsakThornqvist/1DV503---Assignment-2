@@ -82,11 +82,23 @@
         <div class="bookPrice">Price: $<%= book.price %></div>
         <p>
           <% if (user) { %>
-            <button id="addCartButton">Add to cart</button>
-            <button id="minusButton">-</button>
-            <button id="plusButton">+</button>
+<form action="/cart/add" method="POST">
+  <input type="hidden" name="isbn" value="<%= book.isbn %>">
 
-          <% } else { %>
+  <input
+    type="number"
+    name="qty"
+    min="1"
+    value="1"
+    required
+  >
+
+  <button type="submit" id="addCartButton">
+    Add to cart
+  </button>
+</form>
+
+<% } else { %>
             <p>Login to add to cart</p>
           <% } %>
         </p>
