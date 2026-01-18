@@ -3,37 +3,42 @@ import pool from '../config/db.js'
 export class CartModel {
 
 
-async addBookToCart(userId, isbn, qty) {
+async addBookToCart(userid, isbn, qty) {
 
-    const bookAlreadyInCart = await this.getItemFromCart(userId, isbn)
+    const bookAlreadyInCart = await this.getItemFromCart(userid, isbn)
 
     if (bookAlreadyInCart) {
-        return updateQuantity(userId, isbn, bookAlreadyInCart.qty + qty)
+        return await this.updateQuantityForCart(userid, isbn, bookAlreadyInCart.qty + qty)
     } else {
-        const sql = `INSERT INTO caer (userid, isbn, qty) VALUES (?, ?, ?)`
-        const [rows] = await pool.query(sql, [userId, isbn, qty])
+        const sql = `INSERT INTO cart (userid, isbn, qty) VALUES (?, ?, ?)`
+        const [rows] = await pool.query(sql, [userid, isbn, qty])
         return rows
     }
 }
 
-async getItemFromCart(userId, isbn) {
-    const sql = `SELECT * FROM cart WHERE userID = ? AND isbn = ?`
-    const [rows] = await pool.query(sql, [userId, isbn])
+async getItemFromCart(userid, isbn) {
+    const sql = `SELECT * FROM cart WHERE userid = ? AND isbn = ?`
+    const [rows] = await pool.query(sql, [userid, isbn])
+    return rows[0] || null
+}
+
+async updateQuantityForCart (userid, isbn, qty) {
+const sql = `UPDATE cart SET qty = ? WHERE userid = ? AND isbn = ?`
+const [rows] = await pool.query(sql, [qty, userid, isbn])
+return rows
+}
+
+async getCartItemsWithUserId (userid) {
+    const sql = `SELECT cart.isbn, cart.qty, books.title, books.author, books.price, books.subject, cart.qty * books.price AS total FROM cart INNER JOIN books on cart.isbn = books.isbn WHERE cart.userid = ? ORDER BY cart.isbn`
+    const [rows] = await pool.query(sql, [userid])
     return rows
-}
-
-async updateQuantityForCart (userId, isbn, qty) {
 
 }
 
-async getCartWithUserId (userId) {
+async clearCart (userid) {
+    const sql = `DELETE FROM cart WHERE userid = ?`
 
-}
-
-async clearCart (userId) {
-    const sql = `DELETE FROM cart WHERE userId = ?`
-
-    const [rows] = await pool.query(sql, [userId])
+    const [rows] = await pool.query(sql, [userid])
     return rows
 }
 
